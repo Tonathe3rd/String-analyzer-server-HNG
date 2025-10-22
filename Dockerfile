@@ -1,17 +1,17 @@
-# Use an official OpenJDK image
+# Use an official OpenJDK base image
 FROM openjdk:17-jdk-slim
 
-# Set working directory inside the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy all files from your repository into the container
-COPY . .
+# Copy the source code into the container
+COPY ./src /app/src
 
-# Move into the src folder, compile the main Java file
-RUN javac src/StringAnalyzerServer.java
+# Compile the Java file
+RUN javac /app/src/StringAnalyzerServer.java
 
-# Expose port 8080 to match default
+# Expose the default Railway port
 EXPOSE 8080
 
-# Run the server; instruct Java to find the classpath appropriately
-CMD ["java", "-cp", "src", "StringAnalyzerServer"]
+# Set the command to run your Java server
+CMD ["java", "-cp", "/app/src", "StringAnalyzerServer"]
