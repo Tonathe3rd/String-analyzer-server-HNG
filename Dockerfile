@@ -1,17 +1,17 @@
-# Use official JDK image
+# Use an official OpenJDK image
 FROM openjdk:17-jdk-slim
 
-# Set working directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy all project files into the container
+# Copy all files from your repository into the container
 COPY . .
 
-# Compile your Java file (replace with your actual main file name)
-RUN javac StringAnalyzerServer.java
+# Move into the src folder, compile the main Java file
+RUN javac src/StringAnalyzerServer.java
 
-# Expose port 8080 for Railway
+# Expose port 8080 to match default
 EXPOSE 8080
 
-# Run your server
-CMD ["java", "StringAnalyzerServer"]
+# Run the server; instruct Java to find the classpath appropriately
+CMD ["java", "-cp", "src", "StringAnalyzerServer"]
